@@ -10,9 +10,11 @@ import (
 	"os"
 )
 
+//TODO: server and cli handling done separately
+
 var a = api.New()
 
-
+//registers the handler as in http module docs
 func handleServerDefaultGame(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(a.DefaultGame())
 }
@@ -22,6 +24,7 @@ func handleCliDefaultGame() {
 	fmt.Println(string(byts))
 }
 
+//parses string handling
 func handleServerParseGame(w http.ResponseWriter, r *http.Request) {
 	var ig api.InputGame
 	if err := json.NewDecoder(r.Body).Decode(&ig); err != nil {
@@ -37,6 +40,7 @@ func handleServerParseGame(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(outputGame)
 }
 
+//handles CLI but in diff manner. Requires preciison OS handling in this case
 func handleCliParseGame(flagParseGame *string) {
 	var ig api.InputGame
 	if err := json.Unmarshal([]byte(*flagParseGame), &ig); err != nil {

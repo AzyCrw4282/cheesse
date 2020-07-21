@@ -16,10 +16,9 @@ var (
 	flagParseNotation = flag.String("parseNotation", "", "ParseNotation API call. Requires a JSON string with arguments. Please review spec.")
 )
 
-
 func main() {
 
-	for _, s := range a.DefaultGame().Board.Board {
+	for _, s := range a.DefaultGame().Board.Board { // defaultGame returns output board which then contains board pieces
 		fmt.Println(s)
 	}
 
@@ -31,15 +30,15 @@ func main() {
 	http.HandleFunc("/parseNotation", handleServerParseNotation)
 
 	switch {
-		case *flagServe != 0:
-			http.ListenAndServe(fmt.Sprintf(":%v", *flagServe), nil)
-		case *flagDefaultGame://this is always executed as the first step
-			handleCliDefaultGame()
-		case *flagParseGame != "":
-			handleCliParseGame(flagParseGame)
-		case *flagDoAction != "":
-			handleCliDoAction(flagDoAction)
-		case *flagParseNotation != "":
-			handleCliParseNotation(flagParseNotation)
-		}
+	case *flagServe != 0:
+		http.ListenAndServe(fmt.Sprintf(":%v", *flagServe), nil)
+	case *flagDefaultGame: //this is always executed as the first step
+		handleCliDefaultGame()
+	case *flagParseGame != "":
+		handleCliParseGame(flagParseGame)
+	case *flagDoAction != "":
+		handleCliDoAction(flagDoAction)
+	case *flagParseNotation != "":
+		handleCliParseNotation(flagParseNotation)
+	}
 }

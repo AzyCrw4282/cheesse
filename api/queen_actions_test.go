@@ -63,7 +63,7 @@ func TestQueenActions(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			g, err := newGameFromBoard(tc.board)
 			require.NoError(t, err)
-			assert.ElementsMatch(t, tc.actions, g.pieces[tc.color][tc.xy].calculateAllActions(g))
+			assert.ElementsMatch(t, tc.actions, g.pieces[tc.color][tc.xy].calculateAllActions(g)) //actions must match
 		})
 	}
 }

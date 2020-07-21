@@ -14,7 +14,7 @@ func TestBishopActions(t *testing.T) {
 		actions []action
 		color   color
 		xy      xy
-	}{
+	}{ //anonymous structs -- typicallyy used to avoid having to define and creating them. Easy to use for test case
 		{
 			name: "black bishop: no actions because it's trapped",
 			board: board{

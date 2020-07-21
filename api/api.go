@@ -2,6 +2,8 @@ package api
 
 import "errors"
 
+//TODO: Straightforward handling for API
+
 // API represents the cheesse API. All cheesse API methods are exported methods of this struct.
 type API struct{}
 
