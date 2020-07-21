@@ -31,6 +31,7 @@ var (
 func newGameFromFEN(s string) (game, error) {
 	rxFEN := regexp.MustCompile(`^([1-8rnbqkpRNBQKP]{1,8})\/([1-8rnbqkpRNBQKP]{1,8})\/([1-8rnbqkpRNBQKP]{1,8})\/([1-8rnbqkpRNBQKP]{1,8})\/([1-8rnbqkpRNBQKP]{1,8})\/([1-8rnbqkpRNBQKP]{1,8})\/([1-8rnbqkpRNBQKP]{1,8})\/([1-8rnbqkpRNBQKP]{1,8}) ([wb]) ([KQkq]{0,4}|-) ([a-h][36]|-) ([0-9]{1,3}) ([0-9]{1,3})$`)
 	matches := rxFEN.FindAllStringSubmatch(s, -1)
+	fmt.Print("here",matches)
 	if matches == nil {
 		return game{}, errFENRegexDoesNotMatch
 	}
@@ -59,7 +60,7 @@ func newGameFromFEN(s string) (game, error) {
 	// Castling calculation
 	castlingMap := map[byte]bool{}
 	for i := 0; i < len(matches[0][10]); i++ {
-		castlingMap[matches[0][10][i]] = true
+		castlingMap[matches[0][10][i]] = true // matched returns 2d array vals and the next one indexes within that elem
 	}
 	canWhiteKingsideCastle := castlingMap['K']
 	canWhiteQueensideCastle := castlingMap['Q']
@@ -68,10 +69,10 @@ func newGameFromFEN(s string) (game, error) {
 	canBlackQueensideCastle := castlingMap['q']
 	canBlackCastle := canBlackKingsideCastle || canBlackQueensideCastle
 
-	// Pieces and kings calculation
+	// Pieces and kings calculation of hashmap use
 	pieceTypeMap := map[byte]pieceType{'Q': pieceQueen, 'K': pieceKing, 'B': pieceBishop, 'N': pieceKnight, 'R': pieceRook, 'P': piecePawn}
-	pieces := []map[xy]piece{{}, {}}
-	kings := []piece{{}, {}}
+	pieces := []map[xy]piece{{}, {}}//an empty slice of arrays of maps, mainly used for the two users
+	kings := []piece{{}, {}}//slice of piece struct
 	for y, row := range []string{matches[0][1], matches[0][2], matches[0][3], matches[0][4], matches[0][5], matches[0][6], matches[0][7], matches[0][8]} {
 		x := 0
 		for i := 0; i < len(row); i++ {

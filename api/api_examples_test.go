@@ -14,7 +14,7 @@ func ExampleAPI_DefaultGame() {
 	fmt.Println(game.Board.Board[1])
 	fmt.Println(game.Board.Board[6])
 	fmt.Println(game.Board.Board[7])
-
+	//fmt.Print("asdfdasf")
 	// Output:
 	// ♜♞♝♛♚♝♞♜
 	// ♟♟♟♟♟♟♟♟

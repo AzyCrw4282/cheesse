@@ -5,13 +5,13 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/marianogappa/cheesse/api"
 	"net/http"
 	"os"
-
-	"github.com/marianogappa/cheesse/api"
 )
 
 var a = api.New()
+
 
 func handleServerDefaultGame(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(a.DefaultGame())

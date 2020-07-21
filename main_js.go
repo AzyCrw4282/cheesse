@@ -4,7 +4,6 @@ package main
 
 import (
 	"syscall/js"
-
 	"github.com/marianogappa/cheesse/api"
 )
 
